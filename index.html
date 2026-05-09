@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Λευκή Βίβλος Τουριστικού Μετασχηματισμού 2030–2035 · ΠΕ2 Διαδραστική Παρουσίαση</title>
+  <meta name="description" content="Διαδραστική παρουσίαση 10 ελληνικών τουριστικών προορισμών — ποσοτικά, ποιοτικά και δευτερογενή δεδομένα. Πιλοτικό τεύχος v1.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <link rel="stylesheet" href="assets/css/custom.css">
+
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: {
+        navy:   { 50:'#eef2f8', 300:'#7f9bbe', 500:'#3a73a8', 700:'#1f4e79', 900:'#0d2440' },
+        accent: { 300:'#ffa951', 500:'#e07b00', 700:'#b56400' },
+        ink:    { 300:'#aab2bf', 500:'#5b6473', 700:'#2d3441', 900:'#0a0e14' }
+      },
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'], serif: ['Fraunces','Playfair Display','Georgia','serif'] }
+    } } }
+  </script>
+</head>
+
+<body>
+
+  <!-- Header / Masthead -->
+  <header class="border-b border-[var(--rule)] bg-white">
+    <div class="container mx-auto px-6 py-5 flex items-center justify-between">
+      <div>
+        <p class="section-marker">Παραδοτέο ΠΕ2 · Πιλοτικό τεύχος</p>
+        <h1 class="font-serif text-2xl text-navy-700 mt-1">Λευκή Βίβλος Τουριστικού Μετασχηματισμού<span class="text-ink-500 font-sans font-normal text-base"> · 2030–2035</span></h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="methodology.html" class="text-sm text-ink-500 hover:text-navy-700">Μεθοδολογία</a>
+        <a href="data_sources.html" class="text-sm text-ink-500 hover:text-navy-700">Πηγές</a>
+        <a href="comparative.html" class="text-sm text-ink-500 hover:text-navy-700">Συγκριτικά</a>
+        <button data-theme-toggle class="theme-toggle" aria-label="Εναλλαγή θέματος"></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-navy-900 via-navy-700 to-navy-500 text-white">
+    <div class="container mx-auto px-6 py-24 md:py-32 relative z-10 max-w-4xl">
+      <p class="section-marker text-accent-300">Δέκα προορισμοί · Μία αναλυτική ματιά</p>
+      <h2 class="font-serif text-5xl md:text-6xl leading-tight mt-4">Από τη μαζική συγκέντρωση<br><em class="text-accent-300">στη βιώσιμη χωρική διάχυση.</em></h2>
+      <p class="mt-8 text-lg leading-relaxed text-navy-50/90 max-w-2xl">
+        Πέντε ώριμοι προορισμοί στην ζώνη υπέρβασης φέρουσας ικανότητας. Πέντε προορισμοί με αναξιοποίητο δυναμικό. Δέκα διαφορετικές αναλυτικές αφηγήσεις, πάνω σε κοινή μεθοδολογική βάση πρωτογενούς έρευνας κατοίκων (n≈3.000), δευτερογενών στατιστικών (ΕΛΣΤΑΤ, Eurostat, Τράπεζα της Ελλάδος, INSETE) και χωρικής ανάλυσης (OpenStreetMap POIs, NUTS3 / LAU disaggregation).
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3 text-sm">
+        <span class="px-3 py-1.5 bg-white/10 border border-white/15 rounded-sm">10 προορισμοί</span>
+        <span class="px-3 py-1.5 bg-white/10 border border-white/15 rounded-sm">8 αναλυτικές μέθοδοι</span>
+        <span class="px-3 py-1.5 bg-white/10 border border-white/15 rounded-sm">~3.000 κάτοικοι ερωτώμενοι</span>
+        <span class="px-3 py-1.5 bg-white/10 border border-white/15 rounded-sm">2010–2024 χρονικό βάθος</span>
+      </div>
+    </div>
+    <!-- Decorative geometric -->
+    <svg class="absolute right-0 top-0 h-full opacity-15" viewBox="0 0 600 800" preserveAspectRatio="xMaxYMid slice">
+      <circle cx="500" cy="200" r="180" fill="none" stroke="white" stroke-width="0.5"/>
+      <circle cx="500" cy="200" r="280" fill="none" stroke="white" stroke-width="0.5"/>
+      <circle cx="500" cy="200" r="380" fill="none" stroke="white" stroke-width="0.5"/>
+      <line x1="500" y1="0" x2="500" y2="800" stroke="white" stroke-width="0.5"/>
+      <line x1="120" y1="200" x2="600" y2="200" stroke="white" stroke-width="0.5"/>
+    </svg>
+  </section>
+
+  <!-- Destinations grid -->
+  <section class="container mx-auto px-6 py-20">
+    <div class="rule-eyebrow mb-12"><span class="section-marker">01 — Δέκα προορισμοί</span></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+      <div class="lg:col-span-1">
+        <h3 class="font-serif text-3xl text-navy-700 leading-tight">Επιλέξτε προορισμό<br>για βαθιά ανάλυση</h3>
+        <p class="mt-4 text-ink-700">Κάθε προορισμός παρουσιάζεται με 8 ενότητες δεδομένων: επισκόπηση, ζήτηση/προσφορά, τουριστικό προϊόν, οικονομία, κοινωνία, περιβάλλον, στρατηγική, παράρτημα. Όλα τα στοιχεία είναι διαδραστικά — zoom, filter, σύγκριση.</p>
+        <div class="mt-8 space-y-2 text-sm">
+          <p class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full bg-accent-500"></span> Ώριμοι τουριστικοί προορισμοί</p>
+          <p class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded-full bg-navy-700"></span> Προορισμοί με περιθώριο ανάπτυξης</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2 grid grid-cols-2 gap-4">
+        <!-- Mature destinations -->
+        <a href="chania.html" class="block p-6 border border-[var(--rule)] hover:border-accent-500 transition-all hover:-translate-y-1 group bg-white relative">
+          <p class="section-marker text-accent-500">04 · ΩΡΙΜΟΣ</p>
+          <h4 class="font-serif text-2xl mt-2 text-navy-700">Χανιά</h4>
+          <p class="text-xs text-ink-500 mt-1 mb-4">Δυτική Κρήτη · ΠΕ Χανίων</p>
+          <div class="text-xs space-y-0.5 numeric text-ink-700">
+            <p>1,36 εκ. αφίξεις (2024)</p>
+            <p>TFI 12,7 · POI θ +0,54</p>
+            <p>51.917 κλίνες</p>
+          </div>
+          <span class="absolute top-6 right-6 w-2 h-2 rounded-full bg-accent-500 group-hover:scale-150 transition-transform"></span>
+        </a>
+
+        <div class="p-6 border border-[var(--rule)] bg-white/50 relative opacity-50">
+          <p class="section-marker text-accent-500">03 · ΩΡΙΜΟΣ</p>
+          <h4 class="font-serif text-2xl mt-2 text-navy-700">Κέρκυρα</h4>
+          <p class="text-xs text-ink-500 mt-1 mb-4">Ιόνιο · ΠΕ Κέρκυρας</p>
+          <p class="text-[11px] text-ink-500 italic">Σύντομα διαθέσιμο</p>
+        </div>
+
+        <div class="p-6 border border-[var(--rule)] bg-white/50 relative opacity-50">
+          <p class="section-marker text-accent-500">05 · ΩΡΙΜΟΣ</p>
+          <h4 class="font-serif text-2xl mt-2 text-navy-700">Μύκονος</h4>
+          <p class="text-xs text-ink-500 mt-1 mb-4">Κυκλάδες · ΠΕ Μυκόνου</p>
+          <p class="text-[11px] text-ink-500 italic">Σύντομα διαθέσιμο</p>
+        </div>
+
+        <div class="p-6 border border-[var(--rule)] bg-white/50 relative opacity-50">
+          <p class="section-marker text-accent-500">06 · ΩΡΙΜΟΣ</p>
+          <h4 class="font-serif text-2xl mt-2 text-navy-700">Βόλος-Πήλιο</h4>
+          <p class="text-xs text-ink-500 mt-1 mb-4">Θεσσαλία · ΠΕ Μαγνησίας</p>
+          <p class="text-[11px] text-ink-500 italic">Σύντομα διαθέσιμο</p>
+        </div>
+
+        <div class="p-6 border border-[var(--rule)] bg-white/50 relative opacity-50">
+          <p class="section-marker text-accent-500">07 · ΩΡΙΜΟΣ</p>
+          <h4 class="font-serif text-2xl mt-2 text-navy-700">Ναύπλιο</h4>
+          <p class="text-xs text-ink-500 mt-1 mb-4">Πελοπόννησος · ΠΕ Αργολίδας</p>
+          <p class="text-[11px] text-ink-500 italic">Σύντομα διαθέσιμο</p>
+        </div>
+
+        <div class="p-6 border border-[var(--rule)] bg-white/50 relative opacity-50">
+          <p class="section-marker">08 · ΑΝΑΠΤΥΞΗΣ</p>
+          <h4 class="font-serif text-2xl mt-2 text-navy-700">Ιωάννινα</h4>
+          <p class="text-xs text-ink-500 mt-1 mb-4">Ήπειρος · ΠΕ Ιωαννίνων</p>
+          <p class="text-[11px] text-ink-500 italic">Σύντομα διαθέσιμο</p>
+        </div>
+
+        <div class="p-6 border border-[var(--rule)] bg-white/50 relative opacity-50">
+          <p class="section-marker">09 · ΑΝΑΠΤΥΞΗΣ</p>
+          <h4 class="font-serif text-2xl mt-2 text-navy-700">Καστοριά</h4>
+          <p class="text-xs text-ink-500 mt-1 mb-4">Δυτ. Μακεδονία · ΠΕ Καστοριάς</p>
+          <p class="text-[11px] text-ink-500 italic">Σύντομα διαθέσιμο</p>
+        </div>
+
+        <div class="p-6 border border-[var(--rule)] bg-white/50 relative opacity-50">
+          <p class="section-marker">10 · ΑΝΑΠΤΥΞΗΣ</p>
+          <h4 class="font-serif text-2xl mt-2 text-navy-700">Αλεξανδρούπολη-Σαμοθράκη</h4>
+          <p class="text-xs text-ink-500 mt-1 mb-4">ΑΜΘ · ΠΕ Έβρου</p>
+          <p class="text-[11px] text-ink-500 italic">Σύντομα διαθέσιμο</p>
+        </div>
+
+        <div class="p-6 border border-[var(--rule)] bg-white/50 relative opacity-50">
+          <p class="section-marker">11 · ΑΝΑΠΤΥΞΗΣ</p>
+          <h4 class="font-serif text-2xl mt-2 text-navy-700">Τροιζηνία-Μέθανα</h4>
+          <p class="text-xs text-ink-500 mt-1 mb-4">Αττική · ΠΕ Νήσων</p>
+          <p class="text-[11px] text-ink-500 italic">Σύντομα διαθέσιμο</p>
+        </div>
+
+        <div class="p-6 border border-[var(--rule)] bg-white/50 relative opacity-50">
+          <p class="section-marker">12 · ΑΝΑΠΤΥΞΗΣ</p>
+          <h4 class="font-serif text-2xl mt-2 text-navy-700">Ναυπακτία</h4>
+          <p class="text-xs text-ink-500 mt-1 mb-4">Δ. Ελλάδα · ΠΕ Αιτωλοακαρνανίας</p>
+          <p class="text-[11px] text-ink-500 italic">Σύντομα διαθέσιμο</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Methodology overview strip -->
+  <section class="bg-navy-50 py-20">
+    <div class="container mx-auto px-6">
+      <div class="rule-eyebrow mb-12"><span class="section-marker">02 — Μέθοδοι</span></div>
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <p class="font-serif text-4xl text-navy-700">8</p>
+          <p class="text-sm text-ink-500 mt-1">Διακριτές αναλυτικές μέθοδοι</p>
+          <p class="text-xs mt-3 leading-relaxed">Defert TFI/TII, Item Response Theory, Latent Class Analysis, Random Forest IPA, Doxey Irridex, Bayesian Multilevel, Causal IPW+CEM, Shift-Share/LQ.</p>
+        </div>
+        <div>
+          <p class="font-serif text-4xl text-navy-700">~3.000</p>
+          <p class="text-sm text-ink-500 mt-1">Κάτοικοι σε πρωτογενή έρευνα</p>
+          <p class="text-xs mt-3 leading-relaxed">Σταθμισμένα δείγματα ανά προορισμό (n=300 ώριμοι, n=300 ανάπτυξης), εσωτερική στρωμάτωση σε επίπεδο Καλλικρατικού Δήμου με rake/IPF.</p>
+        </div>
+        <div>
+          <p class="font-serif text-4xl text-navy-700">14</p>
+          <p class="text-sm text-ink-500 mt-1">Έτη χρονικό βάθος</p>
+          <p class="text-xs mt-3 leading-relaxed">Ζήτηση 2010–2024, οικοδομική δραστηριότητα 2015–2025, Eurostat env 2009–2023, MRB 2026.</p>
+        </div>
+        <div>
+          <p class="font-serif text-4xl text-navy-700">9</p>
+          <p class="text-sm text-ink-500 mt-1">Επίσημες πηγές δεδομένων</p>
+          <p class="text-xs mt-3 leading-relaxed">ΕΛΣΤΑΤ (STO12, SBR01, SOP03, Census), Eurostat (lan_lcv, env_*, tour_*), Τράπεζα της Ελλάδος, INSETE, OpenStreetMap, ΥΠΟΑΝ, Περιφέρειες, Δήμοι.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-[var(--rule)] py-12 mt-0">
+    <div class="container mx-auto px-6 grid md:grid-cols-3 gap-8">
+      <div>
+        <p class="section-marker">Παραδοτέο</p>
+        <p class="font-serif text-lg mt-1">Λευκή Βίβλος ΠΕ2</p>
+        <p class="text-xs text-ink-500 mt-2">Χρηματοδότηση μέσω Ταμείου Ανάκαμψης &amp; Ανθεκτικότητας / NextGenerationEU.</p>
+      </div>
+      <div>
+        <p class="section-marker">Έκδοση</p>
+        <p class="text-sm mt-1">Πιλοτικό τεύχος v1.0</p>
+        <p class="text-xs text-ink-500 mt-2">Παρουσιάζεται για ανατροφοδότηση συνεργατών. Επόμενη επικαιροποίηση μετά την ενσωμάτωση σχολίων.</p>
+      </div>
+      <div>
+        <p class="section-marker">Επικοινωνία</p>
+        <p class="text-sm mt-1">Χαράλαμπος Αγυρόπουλος</p>
+        <p class="text-xs text-ink-500 mt-2">Επιστημονικός υπεύθυνος ΠΕ2</p>
+      </div>
+    </div>
+    <div class="container mx-auto px-6 mt-10 pt-6 border-t border-[var(--rule)] flex flex-wrap justify-between items-center text-xs text-ink-500">
+      <p>© 2026 Λευκή Βίβλος Τουριστικού Μετασχηματισμού</p>
+      <p class="numeric">Έκδοση 1.0 · 2026-05-09</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

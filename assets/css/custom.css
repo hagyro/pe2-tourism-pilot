@@ -1,0 +1,487 @@
+/* ============================================================
+   ΛΕΥΚΗ ΒΙΒΛΟΣ ΤΟΥΡΙΣΜΟΥ — HTML Companion
+   Editorial Stylesheet · v1.0 · 2026-05-09
+
+   Color system:
+     navy-900  #0d2440   primary deep
+     navy-700  #1f4e79   primary (matches docx)
+     navy-500  #3a73a8
+     navy-300  #7f9bbe   light
+     navy-50   #eef2f8   tint surface
+     orange-700 #b56400  (hover)
+     orange-500 #e07b00  accent (matches docx)
+     orange-300 #ffa951  light accent
+     ink-900   #0a0e14   text primary
+     ink-700   #2d3441   text body
+     ink-500   #5b6473   muted
+     ink-300   #aab2bf   border subdued
+     paper      #fafafa   page bg
+   ============================================================ */
+
+@layer base {
+  :root {
+    --navy-900: #0d2440;
+    --navy-700: #1f4e79;
+    --navy-500: #3a73a8;
+    --navy-300: #7f9bbe;
+    --navy-50:  #eef2f8;
+    --orange-700: #b56400;
+    --orange-500: #e07b00;
+    --orange-300: #ffa951;
+    --ink-900: #0a0e14;
+    --ink-700: #2d3441;
+    --ink-500: #5b6473;
+    --ink-300: #aab2bf;
+    --paper:   #fafafa;
+    --rule:    rgba(13,36,64,0.08);
+  }
+
+  [data-theme="dark"] {
+    --navy-900: #ebf2fa;
+    --navy-700: #a8c4e0;
+    --navy-500: #6f93ba;
+    --navy-300: #4a6886;
+    --navy-50:  #1a2438;
+    --orange-700: #ffa951;
+    --orange-500: #e07b00;
+    --orange-300: #b56400;
+    --ink-900: #f0f2f5;
+    --ink-700: #c8cdd4;
+    --ink-500: #8a93a3;
+    --ink-300: #4a525e;
+    --paper:   #0a0e14;
+    --rule:    rgba(255,255,255,0.10);
+  }
+}
+
+/* -------- Typography ------------------------------------------------- */
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'ss01' 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-700);
+  background: var(--paper);
+  line-height: 1.55;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+}
+
+.font-serif, .display, h1.display, h2.display {
+  font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'opsz' 1, 'ss01' 1;
+}
+
+.numeric, .tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Editorial section markers — small caps numerical labels */
+.section-marker {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange-500);
+}
+
+/* -------- Page chrome ------------------------------------------------ */
+
+.hero-overlay {
+  background: linear-gradient(180deg,
+    rgba(13,36,64,0.05) 0%,
+    rgba(13,36,64,0.20) 40%,
+    rgba(13,36,64,0.85) 100%);
+}
+
+.nav-tab {
+  position: relative;
+  padding: 0.65rem 0;
+  color: var(--ink-500);
+  font-weight: 500;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+.nav-tab::before {
+  content: attr(data-num);
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--orange-500);
+  font-weight: 600;
+}
+.nav-tab:hover, .nav-tab.active { color: var(--navy-700); }
+.nav-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 2px;
+  background: var(--orange-500);
+}
+
+/* -------- KPI cards ------------------------------------------------- */
+
+.kpi-card {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.25rem 1.4rem;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+[data-theme="dark"] .kpi-card { background: #1a2438; border-color: rgba(255,255,255,0.10); }
+
+.kpi-card:hover {
+  border-color: var(--navy-300);
+  box-shadow: 0 1px 3px rgba(13,36,64,0.06), 0 8px 20px rgba(13,36,64,0.04);
+}
+
+.kpi-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  margin-bottom: 0.45rem;
+}
+
+.kpi-value {
+  font-family: 'Fraunces', serif;
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: var(--navy-700);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-unit {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--ink-500);
+  margin-left: 0.2rem;
+}
+
+.kpi-delta {
+  font-size: 0.78rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+.kpi-delta.up    { color: #2d7a4d; }
+.kpi-delta.down  { color: #b8423a; }
+.kpi-delta.flat  { color: var(--ink-500); }
+
+/* -------- Section dividers ------------------------------------------ */
+
+hr.editorial {
+  border: 0;
+  height: 1px;
+  background: var(--rule);
+  margin: 4rem 0;
+}
+
+.rule-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.rule-eyebrow::before,
+.rule-eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* -------- Pull quotes (qualitative research) ------------------------- */
+
+.pullquote {
+  font-family: 'Fraunces', serif;
+  font-size: 1.35rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--navy-900);
+  border-left: 3px solid var(--orange-500);
+  padding: 0.5rem 0 0.5rem 1.6rem;
+  margin: 1.5rem 0;
+}
+.pullquote::before { content: "« "; color: var(--orange-500); }
+.pullquote::after  { content: " »"; color: var(--orange-500); }
+.pullquote-attr {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  margin-top: 0.6rem;
+  padding-left: 0.2rem;
+}
+.pullquote-attr::before { content: "— "; }
+
+/* -------- Methodological boxes --------------------------------------- */
+
+.method-box {
+  background: var(--navy-50);
+  border-left: 3px solid var(--navy-700);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 3px 3px 0;
+}
+.method-box-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--navy-700);
+  margin-bottom: 0.6rem;
+}
+.method-box-content {
+  font-size: 0.92rem;
+  color: var(--ink-700);
+  line-height: 1.6;
+}
+
+/* -------- Tables ----------------------------------------------------- */
+
+.editorial-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+}
+.editorial-table thead th {
+  background: var(--navy-700);
+  color: white;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-align: left;
+  padding: 0.7rem 0.9rem;
+}
+.editorial-table tbody td {
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--rule);
+}
+.editorial-table tbody tr:nth-child(even) td {
+  background: rgba(13,36,64,0.015);
+}
+.editorial-table tbody tr:hover td {
+  background: var(--navy-50);
+}
+.editorial-table .num { text-align: right; }
+
+/* -------- SWOT grid -------------------------------------------------- */
+
+.swot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.swot-cell {
+  background: white;
+  padding: 1.4rem 1.5rem;
+}
+[data-theme="dark"] .swot-cell { background: #1a2438; }
+[data-theme="dark"] .swot-cell strong { color: #a8c4e0 !important; }
+[data-theme="dark"] .swot-cell .text-ink-500 { color: #c8cdd4 !important; }
+.swot-cell.s { border-top: 3px solid #2d7a4d; }
+.swot-cell.w { border-top: 3px solid #b8423a; }
+.swot-cell.o { border-top: 3px solid var(--navy-700); }
+.swot-cell.t { border-top: 3px solid var(--orange-500); }
+.swot-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.swot-cell.s .swot-label { color: #2d7a4d; }
+.swot-cell.w .swot-label { color: #b8423a; }
+.swot-cell.o .swot-label { color: var(--navy-700); }
+.swot-cell.t .swot-label { color: var(--orange-500); }
+
+/* -------- Strategic axis cards --------------------------------------- */
+
+.axis-card {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.5rem 1.6rem;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+[data-theme="dark"] .axis-card { background: #1a2438; border-color: rgba(255,255,255,0.10); }
+.axis-card:hover { border-color: var(--orange-500); transform: translateY(-2px); }
+
+.axis-num {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.4rem;
+  font-family: 'Fraunces', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--navy-50);
+  line-height: 1;
+}
+[data-theme="dark"] .axis-num { color: var(--navy-300); opacity: 0.3; }
+
+.axis-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--navy-700);
+  margin-bottom: 0.6rem;
+  padding-right: 3rem;
+}
+
+/* -------- Charts containers ------------------------------------------ */
+
+.chart-card {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  /* Always light surface for charts — guarantees Plotly text/grid contrast
+     regardless of page theme. */
+  color: #2d3441;
+}
+[data-theme="dark"] .chart-card {
+  background: #f7f8fa;
+  border-color: rgba(13,36,64,0.10);
+  color: #2d3441;
+}
+.chart-card .chart-title { color: #5b6473 !important; }
+.chart-card .chart-headline { color: #1f4e79 !important; }
+.chart-card .chart-source  { color: #5b6473 !important; }
+
+.chart-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  margin-bottom: 0.4rem;
+}
+.chart-headline {
+  font-family: 'Fraunces', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--navy-700);
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+.chart-source {
+  font-size: 0.74rem;
+  color: var(--ink-500);
+  margin-top: 0.8rem;
+  font-style: italic;
+}
+
+/* -------- Glossary tooltip ------------------------------------------- */
+
+.glossary {
+  border-bottom: 1px dotted var(--orange-500);
+  cursor: help;
+  position: relative;
+}
+.glossary:hover .glossary-tip { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.glossary-tip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--navy-900);
+  color: white;
+  padding: 0.6rem 0.85rem;
+  border-radius: 3px;
+  font-size: 0.78rem;
+  width: 260px;
+  text-align: left;
+  line-height: 1.45;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.18s ease;
+  z-index: 100;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+[data-theme="dark"] .glossary-tip { background: white; color: var(--ink-900); }
+
+/* -------- Theme toggle ----------------------------------------------- */
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  width: 40px; height: 40px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--ink-700);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--navy-700); color: var(--navy-700); }
+
+/* -------- Quotes carousel -------------------------------------------- */
+
+.quotes-deck {
+  position: relative;
+  overflow: hidden;
+}
+.quotes-rail {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.quote-card {
+  min-width: clamp(280px, 36vw, 480px);
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.6rem 1.8rem;
+}
+[data-theme="dark"] .quote-card { background: #1a2438; border-color: rgba(255,255,255,0.10); }
+
+/* -------- Print mode ------------------------------------------------- */
+
+@media print {
+  nav, .theme-toggle, .quotes-deck button { display: none !important; }
+  .chart-card, .kpi-card, .axis-card { break-inside: avoid; }
+  body { background: white; }
+}
+
+/* -------- Smooth utility ------------------------------------------- */
+
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+  opacity: 0;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--ink-300);
+  border-radius: 5px;
+  border: 2px solid var(--paper);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--ink-500); }

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Χανιά · Λευκή Βίβλος Τουριστικού Μετασχηματισμού 2030–2035</title>
+  <meta name="description" content="Πλήρες προφίλ τουριστικού προορισμού Χανίων: 8 ενότητες, 18 διαδραστικά γραφήματα, 4 στρατηγικά τεταρτημόρια, 19 πίνακες, ποιοτικά αποσπάσματα και δευτερογενή δεδομένα.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.0.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <link rel="stylesheet" href="assets/css/custom.css">
+
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: {
+        navy:   { 50:'#eef2f8', 300:'#7f9bbe', 500:'#3a73a8', 700:'#1f4e79', 900:'#0d2440' },
+        accent: { 300:'#ffa951', 500:'#e07b00', 700:'#b56400' },
+        ink:    { 300:'#aab2bf', 500:'#5b6473', 700:'#2d3441', 900:'#0a0e14' }
+      },
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'], serif: ['Fraunces','Playfair Display','Georgia','serif'] }
+    } } }
+  </script>
+</head>
+<body>
+
+  <!-- Top utility bar -->
+  <div class="bg-navy-900 text-white text-xs">
+    <div class="container mx-auto px-6 py-2 flex justify-between items-center">
+      <a href="index.html" class="hover:text-accent-300 transition-colors">← Επιστροφή στους 10 προορισμούς</a>
+      <div class="flex items-center gap-4">
+        <a href="methodology.html" class="text-white/70 hover:text-white">Μεθοδολογία</a>
+        <a href="comparative.html" class="text-white/70 hover:text-white">Συγκριτικά</a>
+        <button data-theme-toggle class="theme-toggle bg-transparent border-white/20 text-white hover:border-white" aria-label="Θέμα"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="relative h-[70vh] min-h-[520px] bg-navy-700 overflow-hidden flex items-end">
+    <!-- Background photo: Παλιό Λιμάνι Χανίων -->
+    <img src="assets/images/chania_hero.jpg" alt="Παλιό Λιμάνι Χανίων στο ηλιοβασίλεμα" class="absolute inset-0 w-full h-full object-cover">
+    <!-- Gradient overlay for text legibility -->
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-900/30 via-navy-900/40 to-navy-900/95"></div>
+    <!-- Subtle decorative grid -->
+    <svg class="absolute inset-0 w-full h-full opacity-[0.06]" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)"/>
+    </svg>
+
+    <div class="container mx-auto px-6 pb-12 relative z-10 text-white">
+      <p class="section-marker text-accent-300">Κεφάλαιο 04 · Ώριμος προορισμός</p>
+      <h1 class="display text-7xl md:text-8xl mt-3 leading-none">Χανιά</h1>
+      <p class="text-xl mt-3 text-navy-50/85 max-w-2xl">Δυτική Κρήτη · ΠΕ Χανίων (NUTS3 EL434) · Πληθυσμός 156.706 (Απογραφή 2021)</p>
+
+      <!-- Photo credit -->
+      <p class="absolute bottom-2 right-4 text-[10px] text-white/40">Φωτογραφία: Παλιό Λιμάνι Χανίων</p>
+
+      <!-- Quick stats -->
+      <div class="mt-10 flex flex-wrap gap-2">
+        <span class="px-3 py-2 bg-white/10 border border-white/15 backdrop-blur-sm">
+          <span class="block text-[11px] uppercase tracking-wider text-white/60">Αφίξεις 2024</span>
+          <span class="font-serif text-lg">1,36 εκ.</span>
+        </span>
+        <span class="px-3 py-2 bg-white/10 border border-white/15 backdrop-blur-sm">
+          <span class="block text-[11px] uppercase tracking-wider text-white/60">Κλίνες</span>
+          <span class="font-serif text-lg numeric">51.917</span>
+        </span>
+        <span class="px-3 py-2 bg-white/10 border border-white/15 backdrop-blur-sm">
+          <span class="block text-[11px] uppercase tracking-wider text-white/60">TFI Defert</span>
+          <span class="font-serif text-lg numeric">12,7</span>
+        </span>
+        <span class="px-3 py-2 bg-accent-500/30 border border-accent-300/40 backdrop-blur-sm">
+          <span class="block text-[11px] uppercase tracking-wider text-accent-300">POI θ</span>
+          <span class="font-serif text-lg numeric">+0,54</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- STICKY NAV -->
+  <nav class="sticky top-0 bg-white/95 backdrop-blur border-b border-[var(--rule)] z-40 shadow-sm">
+    <div class="container mx-auto px-6 overflow-x-auto">
+      <ul class="flex gap-7 whitespace-nowrap">
+        <li><a href="#overview"    class="nav-tab" data-num="01">Επισκόπηση</a></li>
+        <li><a href="#demand"      class="nav-tab" data-num="02">Ζήτηση &amp; Προσφορά</a></li>
+        <li><a href="#product"     class="nav-tab" data-num="03">Τουριστικό προϊόν</a></li>
+        <li><a href="#economy"     class="nav-tab" data-num="04">Οικονομία</a></li>
+        <li><a href="#society"     class="nav-tab" data-num="05">Κοινωνία</a></li>
+        <li><a href="#environment" class="nav-tab" data-num="06">Περιβάλλον</a></li>
+        <li><a href="#strategy"    class="nav-tab" data-num="07">Στρατηγική</a></li>
+        <li><a href="#data"        class="nav-tab" data-num="08">Δεδομένα</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container mx-auto px-6 py-12 max-w-7xl">
+
+    <!-- ============== 01 OVERVIEW ============== -->
+    <section id="overview" class="py-12">
+      <p class="section-marker">Ενότητα 01</p>
+      <h2 class="display text-4xl md:text-5xl text-navy-700 mt-2 mb-2">Επισκόπηση</h2>
+      <p class="text-lg text-ink-700 max-w-3xl mb-10">Δεκατρείς δείκτες-κλειδιά που τοποθετούν τα Χανιά στο φάσμα μεταξύ ώριμου τουριστικού προορισμού και αναδυόμενης ζώνης κορεσμού.</p>
+
+      <!-- 12 KPI cards -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label">Αφίξεις ξενοδοχείων 2024</div>
+          <div class="kpi-value"><span data-num="1359014">0</span><span class="kpi-unit"></span></div>
+          <div class="kpi-delta up">+8,8% vs 2019</div>
+        </div>
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label">Διανυκτερεύσεις 2024</div>
+          <div class="kpi-value"><span data-num="7.27" data-decimals="2">0</span><span class="kpi-unit">εκ.</span></div>
+          <div class="kpi-delta up">+2,9% vs 2019</div>
+        </div>
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label">ALoS (διανυκτ./άφιξη)</div>
+          <div class="kpi-value"><span data-num="5.35" data-decimals="2">0</span></div>
+          <div class="kpi-delta down">−5,8% vs 2019</div>
+        </div>
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label">Συνολικές κλίνες 2024</div>
+          <div class="kpi-value"><span data-num="51917">0</span></div>
+          <div class="kpi-delta up">+9,4% vs 2019</div>
+        </div>
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label">Πληρότητα Αυγούστου</div>
+          <div class="kpi-value"><span data-num="86">0</span><span class="kpi-unit">%</span></div>
+          <div class="kpi-delta flat">2024</div>
+        </div>
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label">Μερίδιο <span data-term="STR">STR</span> διανυκτ.</div>
+          <div class="kpi-value"><span data-num="24.8" data-decimals="1">0</span><span class="kpi-unit">%</span></div>
+          <div class="kpi-delta up">Υψηλότερο των 10 προορισμών</div>
+        </div>
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label"><span data-term="TFI">TFI</span> Defert 2024</div>
+          <div class="kpi-value"><span data-num="12.72" data-decimals="2">0</span></div>
+          <div class="kpi-delta flat">5η θέση των 10</div>
+        </div>
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label"><span data-term="TII">TII</span> 2024</div>
+          <div class="kpi-value"><span data-num="8.67" data-decimals="2">0</span></div>
+          <div class="kpi-delta up">+9,2% vs 2019</div>
+        </div>
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label"><span data-term="POI">POI</span> θ (αντίληψη)</div>
+          <div class="kpi-value"><span data-num="0.54" data-decimals="2">0</span></div>
+          <div class="kpi-delta down">2η θέση των 10</div>
+        </div>
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label">Μέση ικανοποίηση Q9</div>
+          <div class="kpi-value"><span data-num="3.61" data-decimals="2">0</span><span class="kpi-unit">/5</span></div>
+          <div class="kpi-delta flat">μέτρια</div>
+        </div>
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label">Νέες οικοδ. άδειες 2024</div>
+          <div class="kpi-value"><span data-num="515">0</span></div>
+          <div class="kpi-delta up">+224% από 2015</div>
+        </div>
+        <div class="kpi-card" data-reveal>
+          <div class="kpi-label">Blue Flag ακτές 2024</div>
+          <div class="kpi-value"><span data-num="43">0</span></div>
+          <div class="kpi-delta flat">28% Greek total</div>
+        </div>
+      </div>
+
+      <!-- Executive narrative -->
+      <div class="mt-16 grid md:grid-cols-3 gap-12">
+        <div class="md:col-span-2">
+          <p class="section-marker">Στρατηγική σύνοψη</p>
+          <h3 class="display text-3xl text-navy-700 mt-2 mb-4">Ώριμος προορισμός σε καμπή.</h3>
+          <p class="text-ink-700 leading-relaxed mb-4">Τα Χανιά εμφανίζουν δομικά χαρακτηριστικά ώριμου προορισμού: ισχυρή διεθνής ζήτηση (88,7% αλλοδαποί), εκρηκτική STR ανάπτυξη (24,8% μερίδιο διανυκτερεύσεων — υψηλότερο των δέκα), συσσωρευμένη οικοδομική πίεση (+224% άδειες σε δεκαετία), και υποκειμενική αντίληψη υπέρβασης (POI θ +0,54, 2η θέση των δέκα).</p>
+          <p class="text-ink-700 leading-relaxed mb-4">Παράλληλα όμως, διατηρούν επιλογές που έχουν χάσει άλλοι προορισμοί: 100% εξαιρετική ποιότητα υδάτων κολύμβησης, υψηλότερος αριθμός Blue Flag ακτών της χώρας (43), γεωγραφική ποικιλία (φαράγγια, ορεινές περιοχές, μικρά νησιά) που επιτρέπει χωρική διάχυση, και σχετικά μέτρια — αλλά αρνητικά ανοδική — Defert ένταση (TII 8,67, αύξηση +9,2% σε πενταετία).</p>
+          <p class="text-ink-700 leading-relaxed">Η στρατηγική θέση είναι «καμπή»: εάν συνεχιστεί η τάση χωρίς αντισταθμιστικές παρεμβάσεις, η μετάβαση στη ζώνη Μυκόνου είναι ορατή εντός 5–7 ετών. Με κατάλληλη πολιτική (αποεποχικοποίηση, ρύθμιση STR, χωρική διασπορά νότιας ζώνης), τα Χανιά μπορούν να σταθεροποιηθούν στην παρούσα τους θέση ή να μετακινηθούν προς ζώνη υψηλότερης ικανοποίησης κατοίκων.</p>
+        </div>
+        <aside class="border-l-2 border-accent-500 pl-6">
+          <p class="section-marker text-accent-500">Butler TALC</p>
+          <p class="text-2xl font-serif text-navy-700 mt-2">Στάδιο 4 — Σταθεροποίηση</p>
+          <p class="text-sm text-ink-500 mt-3">Με ορισμένα στοιχεία πρώιμης Φάσης 5 (Στασιμότητα): επιβράδυνση επενδύσεων νέων ξενοδοχείων, αύξηση επεκτάσεων και STR, εμφάνιση κοινωνικών αντιδράσεων.</p>
+          <hr class="my-5 border-[var(--rule)]">
+          <p class="section-marker text-accent-500">Doxey Irridex</p>
+          <p class="text-2xl font-serif text-navy-700 mt-2">Apathy → Annoyance</p>
+          <p class="text-sm text-ink-500 mt-3">23% του πληθυσμού (LCA Class 1) ήδη σε ζώνη Annoyance/Antagonism. Κρίσιμη κατώφλια αν ξεπεραστούν τα 30%.</p>
+        </aside>
+      </div>
+    </section>
+
+    <hr class="editorial">
+
+    <!-- ============== 02 DEMAND & SUPPLY ============== -->
+    <section id="demand" class="py-12">
+      <p class="section-marker">Ενότητα 02</p>
+      <h2 class="display text-4xl md:text-5xl text-navy-700 mt-2 mb-2">Ζήτηση &amp; Προσφορά</h2>
+      <p class="text-lg text-ink-700 max-w-3xl mb-10">Δεκατέσσερα έτη εξέλιξης ζήτησης (2010–2024), ξενοδοχειακό δυναμικό 51.917 κλινών, αγορά βραχυχρόνιας μίσθωσης που έχει φτάσει ένα τέταρτο των διανυκτερεύσεων.</p>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Arrivals foreign vs domestic -->
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.1 · Αφίξεις 2010–2024</p>
+          <h3 class="chart-headline">Διπολική δυναμική: εκρηκτική διεθνής επέκταση, στάσιμη εγχώρια κατανάλωση</h3>
+          <div id="chart_arrivals" style="height:380px"></div>
+          <p class="chart-source">Πηγή: ΕΛΣΤΑΤ STO12 T03 (αφίξεις σε ξενοδοχειακά καταλύματα). 88,7% αλλοδαποί επισκέπτες το 2024.</p>
+        </div>
+
+        <!-- Recovery index -->
+        <div class="chart-card">
+          <p class="chart-title">Σχήμα 4.2 · Δείκτης ανάκαμψης 2024/2019</p>
+          <h3 class="chart-headline">Ανάκαμψη ολοκληρωμένη — αλλά πιο αργή από Κέρκυρα</h3>
+          <div id="chart_recovery" style="height:480px"></div>
+          <p class="chart-source">Σύγκριση 10 προορισμών. Λόγος >1 σημαίνει ξεπέρασε την ανάκαμψη.</p>
+        </div>
+
+        <!-- Monthly arrivals -->
+        <div class="chart-card">
+          <p class="chart-title">Σχήμα 4.3 · Μηνιαία κατανομή 2024</p>
+          <h3 class="chart-headline">Συγκέντρωση 4 μηνών αιχμής (Ιουν–Σεπ): 68,6% αφίξεων</h3>
+          <div id="chart_monthly" style="height:380px"></div>
+          <p class="chart-source">Πορτοκαλί = αιχμή · σκούρο μπλε = ώμος · ανοιχτό μπλε = χαμηλή. ΕΛΣΤΑΤ STO12 T13.</p>
+        </div>
+
+        <!-- Gini -->
+        <div class="chart-card">
+          <p class="chart-title">Σχήμα 4.4 · Εποχικότητα: Συντελεστής Gini</p>
+          <h3 class="chart-headline">Σταθερή υψηλή εποχικότητα την τελευταία δεκαετία</h3>
+          <div id="chart_gini" style="height:380px"></div>
+          <p class="chart-source">Gini=0 τέλεια κατανομή · Gini=1 πλήρης συγκέντρωση. Τιμές 0,46–0,50 = υψηλή εποχικότητα.</p>
+        </div>
+
+        <!-- Capacity -->
+        <div class="chart-card">
+          <p class="chart-title">Σχήμα 4.6 · Ξενοδοχειακή δυναμικότητα 2015–2024</p>
+          <h3 class="chart-headline">Κλίνες +18,8% σε δεκαετία — μονάδες +9%</h3>
+          <div id="chart_capacity" style="height:380px"></div>
+          <p class="chart-source">ΕΛΣΤΑΤ STO12 T01. Νέες κλίνες κυρίως σε υπάρχουσες μονάδες (επεκτάσεις).</p>
+        </div>
+
+        <!-- Rooms by stars -->
+        <div class="chart-card">
+          <p class="chart-title">Σχήμα 4.5 · Δωμάτια ανά κατηγορία αστεριών (2024)</p>
+          <h3 class="chart-headline">Κυριαρχία 2* (31,2%) και 4* (24,5%)</h3>
+          <div id="chart_donut" style="height:380px"></div>
+          <p class="chart-source">5* μόλις 19,6% — premium positioning ακόμη υπό-αντιπροσωπευμένο.</p>
+        </div>
+
+        <!-- Occupancy -->
+        <div class="chart-card">
+          <p class="chart-title">Σχήμα 4.7 · Μηνιαίο ποσοστό πληρότητας 2024</p>
+          <h3 class="chart-headline">Αιχμή Αυγούστου 86% — Φεβρουάριος μόλις 4%</h3>
+          <div id="chart_occupancy" style="height:380px"></div>
+          <p class="chart-source">Περιφέρεια Κρήτης (NUTS2). Ευρείες ζώνες αξιοποίησης σε Απρ–Μαϊ και Οκτ.</p>
+        </div>
+
+        <!-- ALoS -->
+        <div class="chart-card">
+          <p class="chart-title">Σχήμα 4.8 · Μέση διάρκεια παραμονής (<span data-term="ALoS">ALoS</span>)</p>
+          <h3 class="chart-headline">Μείωση −1 ημέρα σε δεκαετία (από 6,4 σε 5,4)</h3>
+          <div id="chart_alos" style="height:380px"></div>
+          <p class="chart-source">Σταθερή πτωτική τάση — πιθανή σύνδεση με αύξηση short-haul / city-break τουρισμού.</p>
+        </div>
+
+        <!-- STR share -->
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.9 · Μερίδιο <span data-term="STR">STR</span> έναντι ξενοδοχείων (2020–2024)</p>
+          <h3 class="chart-headline">Από 20% σε 28% αφίξεων μέσα σε 4 χρόνια — ταχύτατη μετατόπιση</h3>
+          <div class="grid md:grid-cols-2 gap-8 mt-4">
+            <div>
+              <p class="text-sm text-ink-500 mb-2">Αφίξεις</p>
+              <div id="chart_str_arrivals" style="height:340px"></div>
+            </div>
+            <div>
+              <p class="text-sm text-ink-500 mb-2">Διανυκτερεύσεις</p>
+              <div id="chart_str_overnights" style="height:340px"></div>
+            </div>
+          </div>
+          <p class="chart-source">AirDNA / Inside Airbnb (booked listings). 24,8% μερίδιο διανυκτερεύσεων = υψηλότερο των 10 προορισμών.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="editorial">
+
+    <!-- ============== 03 PRODUCT ============== -->
+    <section id="product" class="py-12">
+      <p class="section-marker">Ενότητα 03</p>
+      <h2 class="display text-4xl md:text-5xl text-navy-700 mt-2 mb-2">Τουριστικό προϊόν</h2>
+      <p class="text-lg text-ink-700 max-w-3xl mb-10">Από 3.137 σημεία τουριστικού ενδιαφέροντος μέχρι την αξιολόγηση 15 διακριτών υποδομών από τους κατοίκους — η αξιολόγηση «τι λειτουργεί καλά» στον προορισμό.</p>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.10 · Σημεία Τουριστικού Ενδιαφέροντος (POIs OSM)</p>
+          <h3 class="chart-headline">3.137 POIs — 2η θέση των 10 προορισμών (μετά Κέρκυρα)</h3>
+          <div id="chart_pois" style="height:420px"></div>
+          <p class="chart-source">OpenStreetMap Overpass API, εξαγωγή 2025. Κατηγορίες: παραλίες, μουσεία, εστίαση, καταλύματα, αξιοθέατα.</p>
+        </div>
+
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.11 · <span data-term="IPA">IPA</span> Quadrant — Σπουδαιότητα × Αξιολόγηση υποδομών</p>
+          <h3 class="chart-headline">Στάθμευση, εθνικό και τοπικό οδικό στο τεταρτημόριο «Συγκέντρωση εδώ»</h3>
+          <div id="chart_ipa" style="height:520px"></div>
+          <p class="chart-source">Random Forest importance × μέση αξιολόγηση κλίμακας 1–5. Πορτοκαλί = τουριστικές υποδομές, μπλε = δημόσιες.</p>
+        </div>
+      </div>
+
+      <!-- Gap analysis infographic -->
+      <div class="chart-card mt-8">
+        <p class="chart-title">Infographic 4.1 · Gap Analysis Ζήτησης / Προσφοράς</p>
+        <h3 class="chart-headline">Τέσσερα κρίσιμα κενά</h3>
+        <img src="../charts_v2/chania/fig_infographic_4_1_gap_analysis.png" alt="Gap Analysis" class="w-full mt-4 rounded">
+        <p class="chart-source">Σύνθεση δεικτών ΕΛΣΤΑΤ STO12, πρωτογενούς έρευνας κατοίκων, και POI overlay (OSM 2025).</p>
+      </div>
+    </section>
+
+    <hr class="editorial">
+
+    <!-- ============== 04 ECONOMY ============== -->
+    <section id="economy" class="py-12">
+      <p class="section-marker">Ενότητα 04</p>
+      <h2 class="display text-4xl md:text-5xl text-navy-700 mt-2 mb-2">Οικονομία</h2>
+      <p class="text-lg text-ink-700 max-w-3xl mb-10">37% της Ακαθάριστης Προστιθέμενης Αξίας προέρχεται από τομείς G-I (Εμπόριο, Μεταφορές, Τουρισμός). Σχεδόν ένας στους δύο κατοίκους εμπλέκεται οικονομικά στον τουρισμό.</p>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="chart-card">
+          <p class="chart-title">Σχήμα 4.12 · Εκτιμώμενος τζίρος καταλυμάτων</p>
+          <h3 class="chart-headline">Ξενοδοχεία 618 εκ. € · STR 265 εκ. € (2024)</h3>
+          <div id="chart_turnover" style="height:380px"></div>
+          <p class="chart-source">Εκτίμηση: hotel = διανυκτ. × €85 · STR = διανυκτ. × €110 (premium pricing).</p>
+        </div>
+
+        <div class="chart-card">
+          <p class="chart-title">Σχήμα 4.13 · ΑΠΑ G-I έναντι σύνολο</p>
+          <h3 class="chart-headline">Ανάκαμψη +37% post-COVID (2020 → 2023)</h3>
+          <div id="chart_gva" style="height:380px"></div>
+          <p class="chart-source">ΕΛΣΤΑΤ National Accounts. G-I = NACE κλάδοι Εμπόριο, Μεταφορές, Τουρισμός.</p>
+        </div>
+
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.13β · Στρατηγικό τεταρτημόριο: Οικονομική εξάρτηση × Ικανοποίηση</p>
+          <h3 class="chart-headline">«Κοινότητα στηριζόμενη από τουρισμό» (46,7% × 3,61) — διακριτή θέση από Κέρκυρα</h3>
+          <div id="chart_q_employment" style="height:480px"></div>
+          <p class="chart-source">Πρωτογενής έρευνα κατοίκων (n_total ~3.000), σταθμισμένα ποσοστά Q15 και μέση Q9.</p>
+        </div>
+
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.14 · Νέες οικοδομικές άδειες &amp; κατοικίες (2015–2025)</p>
+          <h3 class="chart-headline">+224% σε δεκαετία — έκρηξη 2024 (515 άδειες)</h3>
+          <div id="chart_permits" style="height:380px"></div>
+          <p class="chart-source">ΕΛΣΤΑΤ SOP03. Γκρι 2025 = προσωρινά. Πρόκειται για το ισχυρότερο μέγεθος πίεσης πάνω στο φυσικό απόθεμα.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="editorial">
+
+    <!-- ============== 05 SOCIETY ============== -->
+    <section id="society" class="py-12">
+      <p class="section-marker">Ενότητα 05</p>
+      <h2 class="display text-4xl md:text-5xl text-navy-700 mt-2 mb-2">Κοινωνία</h2>
+      <p class="text-lg text-ink-700 max-w-3xl mb-10">Φέρουσα ικανότητα, ποιότητα ζωής, στεγαστική κρίση από βραχυχρόνια μίσθωση, κοινωνική στάση κατοίκων μέσω Doxey Irridex και Latent Class Analysis.</p>
+
+      <!-- Methodological box: Defert -->
+      <div class="method-box" data-reveal>
+        <p class="method-box-title">Μεθοδολογικό κουτί 4.5.1.α — Γιατί χρησιμοποιούμε Defert <span data-term="TFI">TFI</span>/<span data-term="TII">TII</span></p>
+        <p class="method-box-content">Ο γαλλικός γεωγράφος Pierre Defert εισήγαγε τον TFI το 1967 ως πρώτη συστηματική ποσοτικοποίηση τουριστικής λειτουργίας: TFI = κλίνες/πληθυσμός × 100. Ο TII είναι μεταγενέστερη επέκταση που μετρά διανυκτερεύσεις/πληθυσμό × 100. Τα απόλυτα νούμερα δεν λένε αν ένας προορισμός είναι «μικρός υπερβολικά τουριστικός» ή «μεγάλος ισορροπημένος» — οι Defert δείκτες αναγάγουν την κλίμακα. Διεθνή κατώφλια ζώνης (Saveriades 2000, Coccossis &amp; Mexa 2004): TII &lt; 5 χαμηλή πίεση, 5–10 μέτρια, 10–15 υψηλή, &gt;15 πολύ υψηλή. Τα Χανιά: TII 8,67 (2024) σε ζώνη μέτριας, ταχέως ανοδικός.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.15 · Δείκτης Τουριστικής Έντασης (<span data-term="TII">TII</span>) Defert 2010–2024</p>
+          <h3 class="chart-headline">Από 3,78 σε 8,67 — υπερδιπλασιασμός σε 14 έτη</h3>
+          <div id="chart_tii" style="height:420px"></div>
+          <p class="chart-source">Διανυκτερεύσεις / κάτοικο × 100. Όριο υπερκορεσμού (Defert) στη γραμμή TII = 10.</p>
+        </div>
+
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.15γ · Στρατηγικό τεταρτημόριο: Αντικειμενική × Υποκειμενική πίεση</p>
+          <h3 class="chart-headline">Χανιά στη ζώνη «Υποκειμενική κρίση από STR» (TFI 12,7 · POI θ +0,54)</h3>
+          <div id="chart_q_tfi_poi" style="height:480px"></div>
+          <p class="chart-source">POI θ μέσω <span data-term="IRT">IRT</span>-<span data-term="GRM">GRM</span>. TFI σε log10 για visual ισοκατανομή.</p>
+        </div>
+
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.16γ · Στρατηγικό τεταρτημόριο: Στεγαστική κρίση από <span data-term="STR">STR</span></p>
+          <h3 class="chart-headline">91,4% συμφωνεί ότι STR μειώνει διαθεσιμότητα — υψηλότερο των 10</h3>
+          <div id="chart_q_str_housing" style="height:480px"></div>
+          <p class="chart-source">Πρωτογενής έρευνα Q3_7 (διαθεσιμότητα κατοικιών) × Q3_4 (πρόβλημα στέγης μόνιμων).</p>
+        </div>
+
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.16 · Doxey Irridex Heatmap — 5 ώριμοι προορισμοί</p>
+          <h3 class="chart-headline">Ασφάλεια &amp; Φιλικότητα υψηλά παντού — Στήριξη μέτρων περιορισμού χαμηλά</h3>
+          <div id="chart_doxey" style="height:380px"></div>
+          <p class="chart-source">Πρωτογενής έρευνα Q1 — μέσες τιμές κλίμακας 1–5. Πράσινο = θετικό, κόκκινο = αρνητικό.</p>
+        </div>
+      </div>
+
+      <!-- Methodological box: LCA -->
+      <div class="method-box mt-8" data-reveal>
+        <p class="method-box-title">Μεθοδολογικό κουτί 4.5.3.β — Γιατί χρησιμοποιούμε <span data-term="LCA">LCA</span></p>
+        <p class="method-box-content">Η Latent Class Analysis (Lazarsfeld &amp; Henry, 1968 · Hagenaars &amp; McCutcheon, 2002) ομαδοποιεί στατιστικά τους ερωτηθέντες σε εμπειρικά εμφανιζόμενες τυπολογίες, αποκαλύπτοντας υπόρρητους «τύπους κατοίκων» που δεν θα ξεχώριζαν από απλή περιγραφική στατιστική. Σε αντίθεση με a-priori cluster analysis, η LCA εκτιμά πιθανότητες ανάθεσης κάθε ατόμου σε κάθε class με βάση το συνολικό προφίλ απαντήσεων στις 12 διαστάσεις Q1 (Doxey items). Επιλέγουμε 5 classes με βάση BIC + interpretability (LMR-LRT p &lt; 0,01 για k=4 vs k=5· stable improvement σταματά μετά k=5). Τα 5 classes ταιριάζουν με τη Doxey τυπολογία: Δυσαρεστημένοι ↔ Antagonism, Επιφυλακτικοί ↔ Annoyance, Πραγματιστές ↔ Apathy/transitional, Υποστηρικτές ↔ Mild euphoria, Ένθερμοι ↔ Pure euphoria.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8 mt-8">
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.17 · Latent Class Analysis — 10 προορισμοί</p>
+          <h3 class="chart-headline">Χανιά: ισόρροπη κατανομή με βάρος σε Class 1+2 (43,8%)</h3>
+          <div id="chart_lca" style="height:520px"></div>
+          <p class="chart-source">Σταθμισμένο μερίδιο πληθυσμού ανά εμπειρική class. Ταξινόμηση κατά Q9 ικανοποίηση (αύξουσα).</p>
+        </div>
+
+        <div class="chart-card lg:col-span-2">
+          <p class="chart-title">Σχήμα 4.17β · Τεταρτημόριο πόλωσης: Class 1 × Class 5</p>
+          <h3 class="chart-headline">Χανιά στο τεταρτημόριο «Σύγκρουση κυρίαρχη» (23% × 15%)</h3>
+          <div id="chart_q_lca" style="height:480px"></div>
+          <p class="chart-source">Υψηλό Class 1 + χαμηλό Class 5 = προειδοποιητικό σήμα κοινωνικής φθοράς.</p>
+        </div>
+      </div>
+
+      <!-- Qualitative quotes carousel -->
+      <div class="mt-16">
+        <p class="section-marker">Ποιοτική έρευνα · 23 αυτούσια αποσπάσματα</p>
+        <h3 class="display text-3xl text-navy-700 mt-2 mb-6">Φωνές των στελεχών</h3>
+        <div class="quotes-deck" data-carousel>
+          <div class="quotes-rail" id="quotes_rail"></div>
+          <div class="flex gap-2 mt-4 justify-end">
+            <button data-carousel-prev class="theme-toggle" aria-label="Προηγούμενο">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button data-carousel-next class="theme-toggle" aria-label="Επόμενο">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="editorial">
+
+    <!-- ============== 06 ENVIRONMENT ============== -->
+    <section id="environment" class="py-12">
+      <p class="section-marker">Ενότητα 06</p>
+      <h2 class="display text-4xl md:text-5xl text-navy-700 mt-2 mb-2">Περιβάλλον</h2>
+      <p class="text-lg text-ink-700 max-w-3xl mb-10">100% εξαιρετική ποιότητα υδάτων κολύμβησης. Αλλά τεχνητή γη +25,2% σε 4 έτη και Greek <span data-term="WEI+">WEI+</span> 12,51 (μέτρια πίεση). Μικτή κατάσταση με ορατούς κινδύνους.</p>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="chart-card">
+          <p class="chart-title">Eurostat lan_lcv_ovw · Χρήση γης Κρήτης 2022</p>
+          <h3 class="chart-headline">388 km² τεχνητή γη — 4,65% του συνόλου 8.346 km²</h3>
+          <div id="chart_landcover" style="height:380px"></div>
+          <p class="chart-source">Land Use/Cover Area frame Survey (LUCAS), NUTS2 EL43.</p>
+        </div>
+
+        <div class="chart-card">
+          <p class="chart-title">Eurostat sdg_06_60 · Greek <span data-term="WEI+">WEI+</span> 2003–2023</p>
+          <h3 class="chart-headline">Ανοδική πορεία — από 11,5 σε 12,5 σε δεκαετία</h3>
+          <div id="chart_wei" style="height:380px"></div>
+          <p class="chart-source">4ετής μέσος όρος. Ζώνες: πράσινο &lt;10 χαμηλή · κίτρινο 10-20 μέτρια · κόκκινο &gt;20 έντονη.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+        <div class="kpi-card">
+          <div class="kpi-label">Τεχνητή γη Κρήτης 2022</div>
+          <div class="kpi-value"><span data-num="4.65" data-decimals="2">0</span><span class="kpi-unit">%</span></div>
+          <div class="kpi-delta down">+25,2% (2018→2022)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Greek WEI+ 2023</div>
+          <div class="kpi-value"><span data-num="12.51" data-decimals="2">0</span></div>
+          <div class="kpi-delta down">μέτρια πίεση</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Greek απορρ. 2023</div>
+          <div class="kpi-value"><span data-num="523">0</span><span class="kpi-unit">kg/cap</span></div>
+          <div class="kpi-delta flat">~EU avg</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Blue Flag ΠΕ Χανίων 2024</div>
+          <div class="kpi-value"><span data-num="43">0</span></div>
+          <div class="kpi-delta up">28% Greek total</div>
+        </div>
+      </div>
+
+      <div class="chart-card lg:col-span-2 mt-8">
+        <p class="chart-title">Σχήμα 4.18 · Αντίληψη αρνητικών επιπτώσεων (% συμφωνώ + απόλυτα)</p>
+        <h3 class="chart-headline">STR/Airbnb επίδραση 91% · Στεγαστική κρίση 86% — υψηλότερα της Μυκόνου</h3>
+        <div id="chart_env_heat" style="height:420px"></div>
+        <p class="chart-source">Πρωτογενής έρευνα Q3+Q7. Σύγκριση 5 ώριμων προορισμών.</p>
+      </div>
+    </section>
+
+    <hr class="editorial">
+
+    <!-- ============== 07 STRATEGY ============== -->
+    <section id="strategy" class="py-12">
+      <p class="section-marker">Ενότητα 07</p>
+      <h2 class="display text-4xl md:text-5xl text-navy-700 mt-2 mb-2">Στρατηγική</h2>
+      <p class="text-lg text-ink-700 max-w-3xl mb-10">SWOT ανάλυση, πέντε στρατηγικοί άξονες παρεμβάσεων, και επτά στοχευμένες προτάσεις πολιτικής βασισμένες στην πρωτογενή έρευνα κατοίκων.</p>
+
+      <h3 class="font-serif text-2xl text-navy-700 mb-4">SWOT Ανάλυση</h3>
+      <div class="swot-grid mb-12" id="swot_grid"></div>
+
+      <h3 class="font-serif text-2xl text-navy-700 mb-4">Πέντε Στρατηγικοί Άξονες</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12" id="axes_grid"></div>
+
+      <h3 class="font-serif text-2xl text-navy-700 mb-4">Επτά Στοχευμένες Προτάσεις από την Πρωτογενή Έρευνα</h3>
+      <div class="space-y-3" id="proposals_list"></div>
+    </section>
+
+    <hr class="editorial">
+
+    <!-- ============== 08 DATA ANNEX ============== -->
+    <section id="data" class="py-12">
+      <p class="section-marker">Ενότητα 08</p>
+      <h2 class="display text-4xl md:text-5xl text-navy-700 mt-2 mb-2">Δεδομένα &amp; Παράρτημα</h2>
+      <p class="text-lg text-ink-700 max-w-3xl mb-10">Πλήρης πρόσβαση στα 64 items της πρωτογενούς έρευνας, στους 19 πίνακες του κεφαλαίου, και στις 6 πηγές δευτερογενών δεδομένων.</p>
+
+      <h3 class="font-serif text-2xl text-navy-700 mb-4">Πρωτογενής έρευνα — Όλα τα 64 items</h3>
+      <div class="overflow-x-auto">
+        <table class="editorial-table" id="mrb_table">
+          <thead>
+            <tr><th>Item</th><th>Μέσος (1–5)</th><th>% Συμφωνώ</th><th>n valid</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <h3 class="font-serif text-2xl text-navy-700 mt-12 mb-4">4 Μεθοδολογικά Κουτιά</h3>
+      <div class="space-y-4" id="method_boxes"></div>
+
+      <h3 class="font-serif text-2xl text-navy-700 mt-12 mb-4">Πηγές δεδομένων</h3>
+      <ul class="text-sm text-ink-700 space-y-2 list-disc list-inside" id="sources_list"></ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-navy-900 text-white/80 py-12 mt-12">
+    <div class="container mx-auto px-6 grid md:grid-cols-3 gap-8 text-sm">
+      <div>
+        <p class="section-marker text-accent-300">Επόμενος προορισμός</p>
+        <p class="font-serif text-xl text-white mt-2">Κέρκυρα →</p>
+        <p class="text-xs text-white/50 mt-1">Σύντομα διαθέσιμο</p>
+      </div>
+      <div>
+        <p class="section-marker text-accent-300">Λήψεις</p>
+        <ul class="space-y-1 mt-2">
+          <li><a href="../review_docx/04_ΧΑΝΙΑ_PILOT_REVIEW_v11.docx" class="hover:text-accent-300">Πλήρες κεφάλαιο .docx</a></li>
+          <li><a href="assets/data/chania.json" class="hover:text-accent-300">Δεδομένα JSON</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="section-marker text-accent-300">Πιστοποίηση πηγών</p>
+        <p class="text-xs text-white/60 mt-2 leading-relaxed">Όλα τα στατιστικά δεδομένα από επίσημες πηγές (ΕΛΣΤΑΤ, Eurostat, ΤτΕ, INSETE). Πρωτογενής έρευνα κατοίκων από εξειδικευμένο φορέα δημοσκοπικής έρευνας.</p>
+      </div>
+    </div>
+    <div class="container mx-auto px-6 mt-10 pt-6 border-t border-white/10 text-xs text-white/40 flex justify-between">
+      <p>Λευκή Βίβλος Τουριστικού Μετασχηματισμού 2030–2035 · ΠΕ2</p>
+      <p class="numeric">v1.0 · Πιλοτικό · 2026-05-09</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/charts.js"></script>
+  <script src="assets/js/chania-render.js"></script>
+</body>
+</html>
