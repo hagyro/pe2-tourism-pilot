@@ -295,7 +295,7 @@ def load_strategic_axes():
     for m in re.finditer(r'^####\s+Άξονας\s+(\d+):\s+(.+?)$\n\n(.+?)(?=\n####|\n###|\Z)', md, flags=re.M | re.S):
         num = int(m.group(1))
         title = m.group(2).strip()
-        body = re.sub(r'\n+', ' ', m.group(3).strip())[:600]
+        body = re.sub(r'\n+', ' ', m.group(3).strip())[:1500]
         axes.append({"num": num, "title": title, "body": body})
     return axes
 
@@ -306,7 +306,7 @@ def load_proposals():
     for m in re.finditer(r'^####\s+Πρόταση\s+(\d+):\s+(.+?)$\n\n(.+?)(?=\n####|\n###|\Z)', md, flags=re.M | re.S):
         num = int(m.group(1))
         title = m.group(2).strip()
-        body = re.sub(r'\n+', ' ', m.group(3).strip())[:700]
+        body = re.sub(r'\n+', ' ', m.group(3).strip())[:2500]
         props.append({"num": num, "title": title, "body": body})
     return props
 
