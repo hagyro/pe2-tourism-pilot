@@ -105,7 +105,7 @@ def load_rooms_by_stars():
     df = pd.read_csv(ROOT / "data_v2/elstat_sto12/sto12_t01_capacity.csv", encoding="utf-8-sig")
     sub = df[(df["destination_gr"] == "Chania") & (df["year"] == 2024) & (df["star_category"] != "Total")]
     return {
-        "labels": [f"{int(c.replace('star',''))}*" if "star" in c else c for c in sub["star_category"].astype(str)],
+        "labels": [str(c).replace("*", "★") for c in sub["star_category"].astype(str)],
         "values": [int(v) for v in sub["rooms"].tolist()],
     }
 
@@ -139,6 +139,9 @@ def load_pois():
 def load_economic():
     df = pd.read_csv(ROOT / "data_v2/analysis/indicators_economic.csv", encoding="utf-8-sig")
     chania = df[df["destination_gr"] == "Χανιά"].sort_values("year")
+    # Filter out rows where either gva_gi_meur or gva_total_meur is NaN
+    # (Eurostat data not yet released for 2024-2025 at NUTS3 level)
+    chania = chania[chania["gva_gi_meur"].notna() & chania["gva_total_meur"].notna()]
     return {
         "years": chania["year"].tolist(),
         "gva_gi_meur":    chania["gva_gi_meur"].tolist(),
