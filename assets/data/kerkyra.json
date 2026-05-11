@@ -396,54 +396,10 @@
     }
   ],
   "economic": {
-    "years": [
-      2016,
-      2017,
-      2018,
-      2019,
-      2020,
-      2021,
-      2022,
-      2023,
-      2024,
-      2025
-    ],
-    "gva_gi_meur": [
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null
-    ],
-    "gva_total_meur": [
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null
-    ],
-    "gi_share": [
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+    "years": [],
+    "gva_gi_meur": [],
+    "gva_total_meur": [],
+    "gi_share": []
   },
   "permits": {
     "years": [
